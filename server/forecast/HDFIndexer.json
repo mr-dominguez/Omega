@@ -1,0 +1,161 @@
+{
+    "Barragens": [
+        {
+            "Nome": "Almeirim",
+            "Latitude": 39.19661,
+            "Longitude": -8.64296,
+            "Folder": "almeirim"
+        },
+        {
+            "Nome": "Barrosa",
+            "Latitude": 38.9584,
+            "Longitude": -8.74206,
+            "Folder": "barrosa"
+        },
+        {
+            "Nome": "Coruche",
+            "Latitude": 38.95292,
+            "Longitude": -8.5167,
+            "Folder": "coruche"
+        },
+        {
+            "Nome": "Couço",
+            "Latitude": 39.00675,
+            "Longitude": -8.31724,
+            "Folder": "couco"
+        },
+        {
+            "Nome": "Maranhão",
+            "Latitude": 38.99992,
+            "Longitude": -8.00446,
+            "Folder": "maranhao"
+        },
+        {
+            "Nome": "Montargil",
+            "Latitude": 39.05168,
+            "Longitude": -8.17287,
+            "Folder": "montargil"
+        },
+        {
+            "Nome": "Paul de Magos",
+            "Latitude": 39.03891,
+            "Longitude": -8.740421,
+            "Folder": "pauldemagos"
+        },
+        {
+            "Nome": "Comenda",
+            "Latitude": 39.397,
+            "Longitude": -7.78,
+            "Folder": "comenda"
+        },
+        {
+            "Nome": "Estremoz",
+            "Latitude": 38.849,
+            "Longitude": -7.591,
+            "Folder": "estremox"
+        },
+        {
+            "Nome": "Alter do Chão",
+            "Latitude": 39.2,
+            "Longitude": -7.66,
+            "Folder": "alterdochao"
+        },
+        {
+            "Nome": "Ponte de Sôr",
+            "Latitude": 39.249,
+            "Longitude": -8.007,
+            "Folder": "pontedesor"
+        },
+        {
+            "Nome": "Portalegre",
+            "Latitude": 39.294,
+            "Longitude": -7.424,
+            "Folder": "portalegre"
+        },
+        {
+            "Nome": "Fronteira",
+            "Latitude": 39.057,
+            "Longitude": -7.631,
+            "Folder": "fronteira"
+        },
+        {
+            "Nome": "Arraiolos",
+            "Latitude": 38.723,
+            "Longitude": -7.983,
+            "Folder": "arraiolos"
+        },
+        {
+            "Nome": "Pavia",
+            "Latitude": 38.896,
+            "Longitude": -8.021,
+            "Folder": "pauldemagos"
+        },
+        {
+            "Nome": "Avis",
+            "Latitude": 39.052,
+            "Longitude": -7.887,
+            "Folder": "avis"
+        },
+        {
+            "Nome": "Chanceleira",
+            "Latitude": 39.247,
+            "Longitude": -7.815,
+            "Folder": "chanceleira"
+        }
+    ],
+    "RelativePath": "../../../../samba/mldata/MLDATA02/Meteo/DailyMM5/Portugal/Output",
+    "HdfParameters": [
+                        {   
+                            "Param": "relative humidity",
+                            "Sub": [
+                                {
+                                    "med": []
+                                }
+                            ],
+                            "Data": []
+                        }, 
+                        {
+                            "Param": "air temperature",
+                            "Sub": [
+                                {
+                                    "max": []
+                                },
+                                {
+                                    "med": []
+                                },
+                                {
+                                    "min": []
+                                }
+                            ],
+                            "Data": []
+                        }, 
+                        { 
+                            "Param": "wind modulus",
+                            "Sub": [
+                                {
+                                    "med": []
+                                }
+                            ],
+                            "Data": []
+                        },
+                        {   
+                            "Param": "precipitation",
+                            "Sub": [
+                                { 
+                                    "som": []
+                                }
+                            ],
+                            "Data": []
+                        }, 
+                        {   
+                            "Param": "solar radiation",
+                            "Sub": [
+                                {
+                                    "som": []
+                                }
+                            ],
+                            "Data": []
+                        }
+                    ],
+    "NumberOfDays": 7
+}

@@ -1,0 +1,17 @@
+2020-01-14T18:51:26.412Z error: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at ChildProcess.pythonProcess.on (/home/mbelem/nodeTest/nodeServer.js:291:23)
+    at emitTwo (events.js:126:13)
+    at ChildProcess.emit (events.js:214:7)
+    at maybeClose (internal/child_process.js:925:16)
+    at Socket.stream.socket.on (internal/child_process.js:346:11)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at Pipe._handle.close [as _onclose] (net.js:567:12)
+2020-01-14T18:51:26.486Z error: SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at ChildProcess.pythonProcess.on (/home/mbelem/nodeTest/nodeServer.js:253:24)
+    at emitTwo (events.js:126:13)
+    at ChildProcess.emit (events.js:214:7)
+    at maybeClose (internal/child_process.js:925:16)
+    at Process.ChildProcess._handle.onexit (internal/child_process.js:209:5)

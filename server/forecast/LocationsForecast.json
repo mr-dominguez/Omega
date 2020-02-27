@@ -1,0 +1,154 @@
+{
+    "Barragens": [
+        {
+            "Nome": "Almeirim",
+            "Latitude": 39.19661,
+            "Longitude": -8.64296,
+            "Previsto": true
+        },
+        {
+            "Nome": "Barrosa",
+            "Latitude": 38.9584,
+            "Longitude": -8.74206,
+            "Previsto": true
+        },
+        {
+            "Nome": "Coruche",
+            "Latitude": 38.95292,
+            "Longitude": -8.5167,
+            "Previsto": true
+        },
+        {
+            "Nome": "Couço",
+            "Latitude": 39.00675,
+            "Longitude": -8.31724,
+            "Previsto": true
+        },
+        {
+            "Nome": "Maranhão",
+            "Latitude": 38.99992,
+            "Longitude": -8.00446,
+            "Previsto": true
+        },
+        {
+            "Nome": "Montargil",
+            "Latitude": 39.05168,
+            "Longitude": -8.17287,
+            "Previsto": true
+        },
+        {
+            "Nome": "Paul de Magos",
+            "Latitude": 39.03891,
+            "Longitude": -8.740421,
+            "Previsto": true
+        },
+        {
+            "Nome": "Comenda",
+            "Latitude": 39.397,
+            "Longitude": -7.78,
+            "Previsto": true
+        },
+        {
+            "Nome": "Estremoz",
+            "Latitude": 38.849,
+            "Longitude": -7.591,
+            "Previsto": true
+        },
+        {
+            "Nome": "Alter do Chão",
+            "Latitude": 39.2,
+            "Longitude": -7.66,
+            "Previsto": true
+        },
+        {
+            "Nome": "Ponte de Sôr",
+            "Latitude": 39.249,
+            "Longitude": -8.007,
+            "Previsto": true
+        },
+        {
+            "Nome": "Portalegre",
+            "Latitude": 39.294,
+            "Longitude": -7.424,
+            "Previsto": true
+        },
+        {
+            "Nome": "Fronteira",
+            "Latitude": 39.057,
+            "Longitude": -7.631,
+            "Previsto": true
+        },
+        {
+            "Nome": "Arraiolos",
+            "Latitude": 38.723,
+            "Longitude": -7.983,
+            "Previsto": true
+        },
+        {
+            "Nome": "Pavia",
+            "Latitude": 38.896,
+            "Longitude": -8.021,
+            "Previsto": true
+        },
+        {
+            "Nome": "Avis",
+            "Latitude": 39.052,
+            "Longitude": -7.887,
+            "Previsto": true
+        },
+        {
+            "Nome": "Chanceleira",
+            "Latitude": 39.247,
+            "Longitude": -7.815,
+            "Previsto": true
+        }
+    ],
+    "RelativePath": "stations",
+    "NumberOfElements": 7,
+    "Indicadores": [
+        {
+            "Nome": "Humidade Relativa",
+            "Folder": "relative humidity",
+            "SubIndicadores": ["med"],
+            "DivID": "humidadeID",
+            "ChartType": "lineChart",
+            "Unidade": "",
+            "Upper": 1,
+            "Lower": 0
+        },
+        {
+            "Nome": "Temperatura",
+            "Folder": "air temperature",
+            "SubIndicadores": ["max","med","min"],
+            "DivID": "temperaturaID",
+            "ChartType": "lineChart",
+            "Unidade": "ºC"
+        },
+        {
+            "Nome": "Velocidade do Vento",
+            "Folder": "wind modulus",
+            "SubIndicadores": ["med"],
+            "DivID": "velocidadeID",
+            "ChartType": "lineChart",
+            "Unidade": "km/h",
+            "Lower": 0
+        },
+        {
+            "Nome": "Precipitação",
+            "Folder": "precipitation",
+            "SubIndicadores": ["som"],
+            "DivID": "precipitacaoID",
+            "ChartType": "columnChart",
+            "Unidade": "mm"
+        },
+        {
+            "Nome": "Radiação",
+            "Folder": "solar radiation",
+            "SubIndicadores": ["som"],
+            "DivID": "radiacaoID",
+            "ChartType": "lineChart",
+            "Unidade": "MJ/m2.dia",
+            "Lower": 0
+        }
+    ]
+}

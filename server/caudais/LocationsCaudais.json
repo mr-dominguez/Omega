@@ -1,0 +1,52 @@
+{
+    "Caudais": [
+        {
+            "Nome": "Maranhão",
+            "Longitude": -7.9243,
+            "Latitude": 39.0485,
+            "Folder": "maranhao"
+        },
+        {
+            "Nome": "Montargil",
+            "Longitude": -8.1303,
+            "Latitude": 39.1094,
+            "Folder": "montargil"
+        }
+    ],
+    "AbsolutePath": "/samba/mldata/MLDATA01/caudais",
+    "NumberOfElements": 30,
+    "Indicadores": [
+        {
+            "Nome": "Volume",
+            "Folder": "volume",
+            "SubIndicadores": ["val"],
+            "DivID": "volumeID",
+            "ChartType": "columnChart",
+            "Unidade": "m3"
+        },
+        {
+            "Nome": "Sedimentos",
+            "Folder": "cohesivesediment",
+            "SubIndicadores": ["val"],
+            "DivID": "cohesiveSedimentID",
+            "ChartType": "columnChart",
+            "Unidade": "Kg"
+        },
+        {
+            "Nome": "Nitrato",
+            "Folder": "nitrate",
+            "SubIndicadores": ["val"],
+            "DivID": "nitrateID",
+            "ChartType": "columnChart",
+            "Unidade": "Kg"
+        },
+        {
+            "Nome": "Fósforo Inorgânico",
+            "Folder": "inorganicphosphorus",
+            "SubIndicadores": ["val"],
+            "DivID": "inorganicPhosphorusID",
+            "ChartType": "columnChart",
+            "Unidade": "Kg"
+        }
+    ]
+}
