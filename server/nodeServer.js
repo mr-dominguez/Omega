@@ -339,7 +339,7 @@ function extractExcel() {
 	});
 }  
 
- 
+  
 function extractSnirhStations() {
 	console.log('Extracting SNIRH stations...');
 	var today = new Date(); 

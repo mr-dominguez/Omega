@@ -126,7 +126,7 @@ def main():
 
     files = getRecentFiles(indexer["NumberOfDays"],indexer["RelativePath"])
 
-    f = h5py.File(args + indexer["RelativePath"] + "/" + files[0],'r')
+    f = h5py.File(indexer["RelativePath"] + "/" + files[0],'r')
     latArr = f['Grid']['Latitude']
     latList = list(latArr)
     lonArr = f['Grid']['Longitude']

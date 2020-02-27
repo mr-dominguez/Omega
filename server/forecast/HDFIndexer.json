@@ -103,7 +103,7 @@
             "Folder": "chanceleira"
         }
     ],
-    "RelativePath": "../../../../samba/mldata/MLDATA02/Meteo/DailyMM5/Portugal/Output",
+    "RelativePath": "../../../../../samba/mldata/MLDATA02/Meteo/DailyMM5/Portugal/Output",
     "HdfParameters": [
                         {   
                             "Param": "relative humidity",

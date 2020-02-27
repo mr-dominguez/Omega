@@ -105,7 +105,7 @@
             "Folder": "valedopeso"
         }
     ],
-    "RelativePath": "../../../samba/mldata/MLDATA01/stations",
+    "RelativePath": "../../../../samba/mldata/MLDATA01/stations",
     "NumberOfElements": 30,
     "Indicadores": [
         {
