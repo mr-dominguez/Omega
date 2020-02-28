@@ -54,7 +54,7 @@ def main():
     args = parseArguments()
     if os.path.exists(os.getcwd()+args+"barragens.xlsx"):
         os.remove(os.getcwd()+args+"barragens.xlsx")
-    wget.download("http://sir.dgadr.gov.pt/images/BOL_ALB_ATUALIZADO_A_14.02.2020.xlsx",os.getcwd()+args+"barragens.xlsx")
+    wget.download("http://sir.dgadr.gov.pt/images/BOL_ALB_ATUALIZADO_A_21_02_2020.xlsx",os.getcwd()+args+"barragens.xlsx")
     with open(os.getcwd()+args+"volumes/data.json",encoding='utf8') as json_file:
         data = json.load(json_file)
         data["data"]["semana"][0]["numero"] = 1

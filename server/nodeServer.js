@@ -115,11 +115,23 @@ function scheduleJobs(){
 	
 	fs.readFile(__dirname + "/../OMEGA/js/estaciones/Delineation.geojson", "UTF8", function(err, data) {
 		if (err) { 
-			logger.log('error', err);
-			throw err
-		};
-		delineation = data;
+			logger.log('Error on reading delineation file.', err);
+			fs.readFile(__dirname + "/data/delineation.dat", function(error, data) {
+				if (error) { return console.error(error); }
+				delineation = JSON.parse(data);
+				console.log("Error on delineation file fixed.");
+			});
+		} else {
+			delineation = data;
+			fs.writeFile(__dirname + "/data/delineation.dat", JSON.stringify(delineation), function(error) {
+				if (error) {
+					console.log('Error on writing delineation file.', error);
+					throw error;
+				}
+			});
+		}
 	});
+
 	fs.readFile(__dirname + "/forecast//LocationsForecast.json", "UTF8", function(err, data) {
 		if (err) { 
 			logger.log('error', err);
@@ -127,6 +139,7 @@ function scheduleJobs(){
 		};
 		forecastLocation = JSON.parse(data);
 	});
+
 	fs.readFile(__dirname + "/caudais//LocationsCaudais.json", "UTF8", function(err, data) {
 		if (err) { 
 			logger.log('error', err);
@@ -134,6 +147,7 @@ function scheduleJobs(){
 		};
 		caudaisLocation = JSON.parse(data);
 	});
+
 	fs.readFile(__dirname + "/../OMEGA/js/caudais/maranhaoShapefile.json", "UTF8", function(err, data) {
 		if (err) {
 			logger.log('error', err);
@@ -141,6 +155,7 @@ function scheduleJobs(){
 		};
 		maranhaoShape = data;
 	});
+
 	fs.readFile(__dirname + "/../OMEGA/js/caudais/maranhaoDelineation.json", "UTF8", function(err, data) {
 		if (err) {
 			logger.log('error', err);
@@ -148,6 +163,7 @@ function scheduleJobs(){
 		};
 		maranhaoLimits = data;
 	});
+
 	fs.readFile(__dirname + "/../OMEGA/js/caudais/montargilShapefile.json", "UTF8", function(err, data) {
 		if (err) {
 			logger.log('error', err);
@@ -155,6 +171,7 @@ function scheduleJobs(){
 		};
 		montargilShape = data;
 	});
+
 	fs.readFile(__dirname + "/../OMEGA/js/caudais/montargilDelineation.json", "UTF8", function(err, data) {
 		if (err) {
 			logger.log('error', err);
@@ -162,6 +179,7 @@ function scheduleJobs(){
 		};
 		montargilLimits = data;
 	});
+
 	fs.readFile(__dirname + "/../excelExtractor/volumes/data.json", "UTF8", function(err, data) {
 		if (err) { 
 			logger.log('error', err);
@@ -218,7 +236,8 @@ function scheduleJobs(){
 	forecast();
 	extractExcel();
 	extractSnirhStations();
-	console.log("Scheduler finished all tasks.")
+	extractCaudais();
+	console.log("Scheduler finished all tasks.");
 }
 
 
@@ -365,3 +384,16 @@ function extractSnirhStations() {
 }
 
 
+function extractCaudais() {
+	console.log('Extracting Caudais information...');
+	const pythonProcess = spawn('python3',[__dirname + "/caudais/extractSRN.py", "--path", "/caudais"])
+	pythonProcess.on('close', (code) => { 
+		try {
+			console.log("Finished extracting Caudais information.");
+		}
+		catch(err) {
+			console.log(err.stack);
+			logger.log('error', err.stack);
+		}
+	});
+}
