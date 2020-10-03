@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>OMEGA Platform</title>
+        <link rel="shortcut icon" href="img/omega.png">
+        <meta charset="UTF-8">
+
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
+        <!-- jQuery library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+        <!-- Latest compiled JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+        <link href="css/style.css" rel="stylesheet" />
+        <script type="text/javascript" src="js/initialization.js"> </script>
+
+    </head>
+    <body onload="resizeGrid()" onresize="resizeGrid()">
+
+        <div class="header" id="header">
+            <h2 class="header-text"> Plataforma OMEGA </h2>
+        </div>
+        <div class="container-fluid" id="main_grid">
+            <div class="row">
+                <div class="col img-container">
+                    <a href="http://omega.maretec.org/html/volumes.html">
+                        <img src="new_imgs/volume.jpg" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Volume Armazenado </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col img-container">
+                    <a href="http://omega.maretec.org/html/previsoes.html">
+                        <img src="new_imgs/previsao2.png" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Previsões Meteorológicas </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col img-container">
+                    <a href="http://omega.maretec.org/html/estacoes.html">
+                        <img src="new_imgs/estacao.png" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Estações Meteorológicas </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col img-container">
+                    <a href="http://omega.maretec.org/html/caudais.html">
+                        <img src="new_imgs/caudal.png" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Previsões dos Caudais </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col img-container">
+                    <a href="http://omega.maretec.org/html/cheias.html">
+                        <img src="new_imgs/cheias.png" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Risco de Cheias </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col img-container">
+                    <a href="http://omega.maretec.org/html/qualidadeAgua.html">
+                        <img src="new_imgs/qualidade_agua.png" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Qualidade das Águas </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col img-container">
+                    <a href="http://omega.maretec.org/html/satelite.html">
+                        <img src="new_imgs/satelite.png" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Informações de Satélite </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col img-container" data-toggle="modal" data-target="#modalPush">
+                    <img src="new_imgs/inundado.png" class="menu-img">
+                    <div class="middle-container">
+                        <div class="middle-text"> Cota Área Inundada / Caudal </div>
+                    </div>
+    
+                </div>
+                <div class="col img-container">
+                    <a href="http://irrigasys.maretec.org" target="_blank">
+                        <img src="new_imgs/irriga.png" class="menu-img">
+                        <div class="middle-container">
+                            <div class="middle-text"> Sistema de Apoio à Rega </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+            <!--Modal: modalPush-->
+            <div class="modal fade" id="modalPush" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+                <div class="modal-dialog modal-notify modal-info" role="document">
+                <!--Content-->
+                    <div class="modal-content text-center" style="width: 1000px;">
+                        <!--Header-->
+                        <div class="modal-header d-flex justify-content-center">
+                        <p class="heading">Selecione a Albufeira</p>
+                        </div>
+
+                            <!--Body-->
+                            <div class="modal-body">
+
+                            <i class="fas fa-bell fa-4x animated rotateIn mb-4"></i>
+
+
+                            <div class="row">
+                                <div class="col-lg">
+                                    <a href="http://omega.maretec.org/html/maranhao.html">
+                                        <img class="modal-image myImg" id="maranhao" src="img/maranhao_pic.jpg">
+                                    </a>
+                                </div>
+                                <div class="col-lg">
+                                    <a href="http://omega.maretec.org/html/montargil.html">
+                                        <img class="modal-image myImg" id="montargil" src="img/montargil_pic.jpg">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg">
+                                    <p> Maranhão </p>
+                                </div>
+                                <div class="col-lg">
+                                    <p> Montargil </p>
+                                </div>
+                            </div>
+
+                            </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer flex-center">
+                        <a type="button" class="btn btn-info" data-dismiss="modal">Cancelar</a>
+                        </div>
+                    </div>
+                <!--/.Content-->
+                </div>
+            </div>
+            <!--Modal: modalPush-->
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        </body>
+</html>

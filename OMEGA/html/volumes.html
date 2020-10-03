@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <title>OMEGA - Volumes</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Collapsible sidebar using Bootstrap 4</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="../css/aforo/style.css" rel="stylesheet" />
+    <!-- Scrollbar Custom CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <!-- jQuery Custom Scroller CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <!--papaparse for csv files-->
+    <script type="text/javascript" src="../js/papaparse.min.js"> </script>
+    <!--Google charts-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCix8JgYQFV3N7Q0tlmb1F252damvsvsis&callback=initMap">
+    </script>
+
+    <!-- DEIXOU DE SER MAINTAINED
+        <script src="https://cdn.rawgit.com/googlemaps/v3-utility-library/master/infobox/src/infobox.js"></script>
+    -->
+    
+    <script type="text/javascript" src="../js/aforo/Albufeira.js"> </script>
+    <script type="text/javascript" src="../js/aforo/sideMenu.js"> </script>
+
+</head>
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div id="dismiss">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+
+            <div class="sidebar-header">
+                <h3>Albufeiras</h3>
+            </div>
+            <form autocomplete="off" style="width:250px;">
+                <div class="autocomplete" style="width:240px;">
+                  <input id="myInput" type="text" name="myAlbufeira" placeholder="Pesquisar albufeira">
+                </div>
+                
+            </form>
+
+            <ul id="albufeiras" class="list-unstyled components">
+            </ul>
+        </nav>
+
+        <a href="http://omega.maretec.org" class="back_button">Voltar ao Menu</a> 
+
+        <!-- Page Content  -->
+        <div id="content">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info" disabled="disabled">
+                        <i class="fas fa-align-left"></i>
+                        <span>Selecione albufeira</span>
+                    </button>
+                </div>
+            </nav>
+            <div class="container-fluid" id="backToMap" style="display: none;">
+                <button type="button" class="btn btn-info" >
+                    <i class="fa fa-undo"></i>
+                    <span>Voltar ao mapa</span>
+                </button>
+            </div>
+            <!--loading gif-->
+            <img id="loading" src="../img/loading.gif"/>
+            <div id="container">
+                <div><h3 id="semanaAtual" style="display:none;text-align: center;"></h3></div>
+                <div id="mainMap"></div>
+                <div id="legend" style="display:none"><h3>Legenda</h3>
+                    <canvas id="circleA" width="20" height="20" style="margin-right:5px;"></canvas><text style="margin-right:15px;">Inferior a 30%</text>
+                    <canvas id="circleB" width="20" height="20" style="margin-right:5px;"></canvas><text style="margin-right:15px;">Entre 60% e 30%</text>
+                    <canvas id="circleC" width="20" height="20" style="margin-right:5px;"></canvas><text style="margin-right:15px;">Entre 80% e 60%</text>
+                    <canvas id="circleD" width="20" height="20" style="margin-right:5px;"></canvas><text style="margin-right:15px;">Superior ou igual a 80%</text>
+                </div>
+                <div id="informations">
+                        <h2 id="albufeiraName"></h2>
+                </div>
+                <div id="chart">
+
+                </div>
+                <div id="map" style="display: none;">
+                    
+                </div>
+            </div>  
+
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+    
+</body>
+
+</html>
