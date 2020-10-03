@@ -1,5 +1,10 @@
 import xlrd,wget,xlwt,os,json,argparse,sys,datetime
 from datetime import date
+import requests
+from bs4 import BeautifulSoup
+
+#Keep track of last time data was extracted to avoid processing the same information twice
+last_link_file = "/home/mbelem/Omega/excelExtractor/last_link.txt"
 
 def parseJSON(args):
     with open(os.getcwd()+args+"volumes/data.json") as json_file:
@@ -54,14 +59,52 @@ def main():
     args = parseArguments()
     if os.path.exists(os.getcwd()+args+"barragens.xlsx"):
         os.remove(os.getcwd()+args+"barragens.xlsx")
-    wget.download("http://sir.dgadr.gov.pt/images/BOL_ALB_ATUALIZADO_A_21_02_2020.xlsx",os.getcwd()+args+"barragens.xlsx")
-    with open(os.getcwd()+args+"volumes/data.json",encoding='utf8') as json_file:
-        data = json.load(json_file)
-        data["data"]["semana"][0]["numero"] = 1
-        data["data"]["semana"][0]["dia"] = "24/01/2020"
-    with open(os.getcwd()+args+"volumes/data.json","w",encoding='utf8') as json_file:
-        json.dump(data, json_file, indent=4, ensure_ascii=False)
-    parseExcel(args)
+
+
+    #Get page with barragens
+    page = requests.get("http://sir.dgadr.gov.pt/reservas")
+
+    #Transform into soup for parsing
+    soup = BeautifulSoup(page.content, 'html.parser')
+
+    #Find all hrefs and compare contents with result intended
+    for a in soup.find_all('a', href=True):
+        if a.contents and "Boletim das Albufeiras" in a.contents[0]:
+            #Link for download is in a href tag
+            pathToBoletim = a['href']
+
+            #Extract date to display in website
+            if pathToBoletim[-6] != "_":
+                date = pathToBoletim[-15:-5]
+            else:
+                date = pathToBoletim[-16:-6]
+
+    link = "http://sir.dgadr.gov.pt" + pathToBoletim
+
+    #Check if new information is available
+    f = open(last_link_file, 'r')
+    line = f.readline
+    f.close()
+
+    #If new link is different that the last link downloaded then download new info
+    if line and line != link:
+        wget.download(link ,os.getcwd() + args + "barragens.xlsx")
+        with open(os.getcwd()+args+"volumes/data.json",encoding='utf8') as json_file:
+            data = json.load(json_file)
+            data["data"]["semana"][0]["numero"] = 1
+            data["data"]["semana"][0]["dia"] = date
+        with open(os.getcwd()+args+"volumes/data.json","w",encoding='utf8') as json_file:
+            json.dump(data, json_file, indent=4, ensure_ascii=False)
+        parseExcel(args)
+
+        #Write new link in file
+        g = open(last_link_file, 'w')
+        g.write(link)
+        g.close()
+
+    #Else give incorrect link to report error and reload previous info (bad implementation - should have a cleaner solution)
+    else:
+        wget.download("blah" + link + "blah" ,os.getcwd() + args + "barragens.xlsx")
 
 '''
 def main():

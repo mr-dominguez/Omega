@@ -57,6 +57,14 @@
             "Folder": "couco"
         },
         {
+            "Nome": "Estremoz",
+            "Latitude": 38.849,
+            "Longitude": -7.591,
+            "Medido":   true,
+            "Previsto": false,
+            "Folder": "estremoz"
+        },
+        {
             "Nome": "Maranhão",
             "Latitude": 38.99992,
             "Longitude": -8.00446,
@@ -167,13 +175,6 @@
             "Nome": "Comenda",
             "Latitude": 39.397,
             "Longitude": -7.78,
-            "Medido":   false,
-            "Previsto": true
-        },
-        {
-            "Nome": "Estremoz",
-            "Latitude": 38.849,
-            "Longitude": -7.591,
             "Medido":   false,
             "Previsto": true
         },

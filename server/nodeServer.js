@@ -6,7 +6,7 @@ var path = require('path');
 var schedule = require('node-schedule');
 var shp = require('shpjs');
 var spawn = require("child_process").spawn;
-
+ 
 
 /*instant runns on server starting*/
 scheduleJobs()
@@ -24,13 +24,16 @@ var volumesData;
 var jsonData;
 var maranhaoShape;
 var maranhaoLimits;
+var maranhaoSatelite;
 var montargilShape;
 var montargilLimits;
+var montargilSatelite;
+var sateliteAdditionalInfo = {};
 
 
 const options = {
-	
 };
+
 const app = express();
 
 let winston = require('winston');
@@ -67,16 +70,25 @@ app.use((req,res) => {
 		res.send(caudaisLocation);
 	}
 	else if(q.file == "maranhaoShapefile") {
-		res.send(maranhaoShape)
+		res.send(maranhaoShape);
 	}
 	else if(q.file == "maranhaoDelineation") {
-		res.send(maranhaoLimits)
+		res.send(maranhaoLimits);
+	}
+	else if(q.file == "maranhaoSatelite") {
+		res.send(maranhaoSatelite);
 	}
 	else if(q.file == "montargilShapefile") {
-		res.send(montargilShape)
+		res.send(montargilShape);
 	}
 	else if(q.file == "montargilDelineation") {
-		res.send(montargilLimits)
+		res.send(montargilLimits);
+	}
+	else if(q.file == "montargilSatelite") {
+		res.send(montargilSatelite);
+	}
+	else if(q.file == "sateliteInfo") {
+		res.send(sateliteAdditionalInfo);
 	}
 	else if(q.chart && q.b) {
 		console.log("Sending stations information...")
@@ -180,6 +192,24 @@ function scheduleJobs(){
 		montargilLimits = data;
 	});
 
+	fs.readFile("/samba/mldata/MLDATA01/omega/sattelite_NDWI_Area/maranhao_output.txt", "UTF8", function(err, data) {
+		if (err) {
+			logger.log('error', err);
+			throw err
+		};
+		lines = data.replace("\n", "").split("\r");
+		sateliteAdditionalInfo["maranhao"] = lines[lines.length - 2];
+	});
+
+	fs.readFile("/samba/mldata/MLDATA01/omega/sattelite_NDWI_Area/montargil_output.txt", "UTF8", function(err, data) {
+		if (err) {
+			logger.log('error', err);
+			throw err
+		};	
+		lines = data.replace("\n", "").split("\r");
+		sateliteAdditionalInfo["montargil"] = lines[lines.length - 2];
+	});
+
 	fs.readFile(__dirname + "/../excelExtractor/volumes/data.json", "UTF8", function(err, data) {
 		if (err) { 
 			logger.log('error', err);
@@ -201,12 +231,24 @@ function scheduleJobs(){
 					for(var a = 0; a < location.Indicadores.length; a++) {
 						
 						stations[location.Barragens[i].Folder][location.Indicadores[a].Folder] = 
-						convertToJSON(populateFields(location.Indicadores[a],location.Barragens[i].Folder,location.NumberOfElements),location.Indicadores[a]);
+						convertToJSON(populateFields(location.Indicadores[a],location.Barragens[i].Folder,location.NumberOfElements,__dirname + "/" + location.RelativePath),location.Indicadores[a]);
 					}
 				}
 			}
+			fs.writeFile(__dirname + "/data/stations.dat", JSON.stringify(stations), function(error) {
+				if (error) {
+					console.log('Error on writing stations data file.', error);
+					throw error;
+				}
+			});
 		}
 		catch(err) {
+			console.log("Error processing stations module.");
+			fs.readFile(__dirname + "/data/stations.dat", function(error, data) {
+				if (error) { return console.error(error); }
+				stations = JSON.parse(data);
+				console.log("Error on stations file fixed.");
+			});
 			logger.log('error', err);
 		}
 	});
@@ -216,19 +258,31 @@ function scheduleJobs(){
 			logger.log('error', err);
 			throw err
 		};
-		try {
+		try { 
 			caudaisLocation = JSON.parse(data);
 			for(i=0; i<caudaisLocation.Caudais.length; i++) {
 				if (caudaisLocation.Caudais[i].Folder) {
 					caudais[caudaisLocation.Caudais[i].Folder] = [];
 					for(var a = 0; a<caudaisLocation.Indicadores.length; a++) {
 						caudais[caudaisLocation.Caudais[i].Folder][caudaisLocation.Indicadores[a].Folder] =
-						convertToJSON(populateCaudaisFields(caudaisLocation.Indicadores[a], caudaisLocation.Caudais[i].Folder, caudaisLocation.NumberOfElements), caudaisLocation.Indicadores[a]);
+						convertToJSON(populateFields(caudaisLocation.Indicadores[a], caudaisLocation.Caudais[i].Folder, caudaisLocation.NumberOfElements, caudaisLocation.AbsolutePath), caudaisLocation.Indicadores[a]);
 					}
 				}
 			}
+			fs.writeFile(__dirname + "/data/caudais.dat", JSON.stringify(caudais), function(error) {
+				if (error) {
+					console.log('Error on writing caudais data file.', error);
+					throw error;
+				}
+			});
 		}
 		catch(err) {
+			console.log("Error processing caudais module.");
+			fs.readFile(__dirname + "/data/caudais.dat", function(error, data) {
+				if (error) { return console.error(error); }
+				caudais = JSON.parse(data);
+				console.log("Error on caudais file fixed.");
+			});
 			logger.log('error', err);
 		}
 	});
@@ -241,12 +295,12 @@ function scheduleJobs(){
 }
 
 
-function populateFields(indicador,folder,numberOfElements) {
+function populateFields(indicador,folder,numberOfElements, path) {
 	let handler = [];
 	for(let i = 0;i < indicador.SubIndicadores.length; i++) {
 		try { 
 			let fileName = indicador.Folder+"_"+indicador.SubIndicadores[i]+".dat";
-			let file = fs.readFileSync(__dirname + "/" + location.RelativePath + "/" + folder + "/" + fileName, "UTF8").toString().replace("\r","").split("\n").map(function(line){
+			let file = fs.readFileSync(path + "/" + folder + "/" + fileName, "UTF8").toString().replace("\r","").split("\n").map(function(line){
 				return line.trim();
 			}).filter(Boolean);
 			handler.push(file.slice(Math.max(file.length - numberOfElements, 0)));
@@ -258,22 +312,6 @@ function populateFields(indicador,folder,numberOfElements) {
 	return handler;
 }
 
-function populateCaudaisFields(indicador,folder,numberOfElements) {
-	let handler = [];
-	for(let i = 0;i < indicador.SubIndicadores.length; i++) {
-		try { 
-			let fileName = indicador.Folder+"_"+indicador.SubIndicadores[i]+".dat";
-			let file = fs.readFileSync(caudaisLocation.AbsolutePath + "/" + folder + "/" + fileName, "UTF8").toString().replace("\r","").split("\n").map(function(line){
-				return line.trim();
-			}).filter(Boolean);
-			handler.push(file.slice(Math.max(file.length - numberOfElements, 0)));
-		}
-		catch(err){
-			continue;
-		}
-	}
-	return handler;
-}
 
 function convertToJSON(data,indicador) {
 	let handler = [];
@@ -294,6 +332,7 @@ function convertToJSON(data,indicador) {
 	}
 	return handler;
 }
+
 
 function forecast() {
 	let chunks = "";
@@ -319,6 +358,7 @@ function forecast() {
 	});
 }
 
+
 function FindForecastBarragem(name,chart) {
 	for(let i = 0;i<forecastData["Barragens"].length;i++) {
 		console.log(i);
@@ -332,6 +372,7 @@ function FindForecastBarragem(name,chart) {
 		}
 	}
 }
+
 
 function extractExcel() {
 	console.log("Extracting Excel information...");
@@ -348,10 +389,23 @@ function extractExcel() {
 		console.log(`excel child process exited with code ${code}`);
 		try {
 			volumesData = JSON.parse(chunks.toString());
+			if (code == 0) {
+				fs.writeFile(__dirname + "/data/volumesData.dat", JSON.stringify(volumesData), function(error) {
+					if (error) {
+						console.log('Error on writing volumesData file.', error);
+						throw error;
+					}
+				});
+			}
 			console.log("Finished extracting Excel.");
 		}
 		catch(err) {
 			console.log(err.stack);
+			fs.readFile(__dirname + "/data/volumesData.dat", function(error, data) {
+				if (error) { return console.error(error); }
+				volumesData = JSON.parse(data);
+				console.log("Error on volumes file fixed.");
+			});
 			logger.log('error', err.stack);
 		}
 
@@ -397,3 +451,23 @@ function extractCaudais() {
 		}
 	});
 }
+
+ 
+/* PROBABLY NOT NEEDED ANYMORE
+function populateCaudaisFields(indicador,folder,numberOfElements) {
+	let handler = [];
+	for(let i = 0;i < indicador.SubIndicadores.length; i++) {
+		try { 
+			let fileName = indicador.Folder+"_"+indicador.SubIndicadores[i]+".dat";
+			let file = fs.readFileSync(caudaisLocation.AbsolutePath + "/" + folder + "/" + fileName, "UTF8").toString().replace("\r","").split("\n").map(function(line){
+				return line.trim();
+			}).filter(Boolean);
+			handler.push(file.slice(Math.max(file.length - numberOfElements, 0)));
+		}
+		catch(err){
+			continue;
+		}
+	}
+	return handler;
+}*/
+ 
